@@ -11,11 +11,13 @@ const tokenA = process.env.TOKEN_A as string;
 const tokenB = process.env.TOKEN_B as string;
 const token = process.env.TOKEN as string;
 
-task('buyDAI', '')
-	.setAction(async ({  }, { ethers }) => {	  
-	//	const contract = await ethers.getContractAt('IUniswapV2Router02Interface', router);
+task('buyToken', '')
+	.addParam('token', 'A pool token')
+	.addParam('amount', '')
+    .addParam('ethamount', '')
+	.setAction(async ({ token, amount, ethamount }, { ethers }) => {	  
     const contract = await ethers.getContractAt('Swap', swap)
-    await contract.convertEthToDai(8, {value: 300000000000000});
+    await contract.swapEthForTokens(amount,token, {value: ethamount});
       
 	})
 
